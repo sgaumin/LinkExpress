@@ -1,0 +1,19 @@
+{
+	"name": "com.sgaumin.linkexpress",
+	"version": "0.1.0",
+	"displayName": "Link Express",
+	"description": "Quickly access useful external links from Unity",
+	"unity": "2018.4",
+	"unityRelease": "0b5",
+	"documentationUrl": "https://example.com/",
+	"changelogUrl": "https://example.com/changelog.html",
+	"licensesUrl": "https://example.com/licensing.html",
+	"keywords": ["link", "inspector", "editor"],
+	"type": "tool",
+	"hideInEditor": true,
+	"author": {
+		"name": "Sébastien Gaumin",
+		"email": "sgaumin@gmail.com",
+		"url": "https://github.com/sgaumin"
+	}
+}
