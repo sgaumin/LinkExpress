@@ -22,14 +22,13 @@ namespace LinkExpress
 		{
 			// TODO: Add Icon on each button.
 			LinkExpressSettings settings = LinkExpressSettings.GetOrCreateSettings();
-			foreach (LinkExpressCategory category in Enum.GetValues(typeof(LinkExpressCategory)))
+			foreach (LinkExpressSettingsEntry entry in settings.Entries)
 			{
-				string link = settings.GetLink(category);
-				if (!string.IsNullOrEmpty(link))
+				if (!string.IsNullOrEmpty(entry.link))
 				{
-					if (GUILayout.Button(category.CleanFormat()))
+					if (GUILayout.Button(entry.category.CleanFormat()))
 					{
-						Application.OpenURL(link);
+						Application.OpenURL(entry.link);
 					}
 				}
 			}

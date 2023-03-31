@@ -1,12 +1,13 @@
 namespace LinkExpress
 {
-	internal enum LinkExpressCategory
+	public enum LinkExpressCategory
 	{
 		Github,
 		Itch,
 		GameJam,
 		Trello,
 		Google_Drive,
-		Twitter
+		Twitter,
+		Other
 	}
 }
