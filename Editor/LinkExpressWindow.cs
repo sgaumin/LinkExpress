@@ -24,11 +24,13 @@ namespace LinkExpress
 			LinkExpressSettings settings = LinkExpressSettings.GetOrCreateSettings();
 			foreach (LinkExpressSettingsEntry entry in settings.Entries)
 			{
-				if (!string.IsNullOrEmpty(entry.link))
+				if (!string.IsNullOrEmpty(entry.Link))
 				{
-					if (GUILayout.Button(entry.category.CleanFormat()))
+					GUI.backgroundColor = entry.BackgroundColor;
+					GUI.contentColor = entry.TextColor;
+					if (GUILayout.Button(entry.Category.CleanFormat()))
 					{
-						Application.OpenURL(entry.link);
+						Application.OpenURL(entry.Link);
 					}
 				}
 			}

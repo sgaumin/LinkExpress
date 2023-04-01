@@ -34,9 +34,9 @@ namespace LinkExpress
 		{
 			foreach (LinkExpressSettingsEntry entry in entries)
 			{
-				if (entry.category == category)
+				if (entry.Category == category)
 				{
-					return entry.link;
+					return entry.Link;
 				}
 			}
 
