@@ -23,9 +23,14 @@ namespace LinkExpress
 				// Create the SettingsProvider and initialize its drawing (IMGUI) function in place:
 				guiHandler = (searchContext) =>
 				{
+					// For safety, we are making sure that we can only edit settings when editor is not playing.
+					EditorGUI.BeginDisabledGroup(Application.isPlaying);
+
 					SerializedProperty entries = settings.FindProperty("entries");
 					EditorGUILayout.PropertyField(entries, true);
 					settings.ApplyModifiedProperties();
+
+					EditorGUI.EndDisabledGroup();
 				},
 
 				// Populate the search keywords to enable smart search filtering and label highlighting:
