@@ -9,9 +9,15 @@ namespace LinkExpress
 
 		[SerializeField] private LinkExpressSettingsEntry[] entries;
 
+		[Header("Animations")]
+		[SerializeField] private bool allowMovement = true;
+		[SerializeField] private bool allowColorVariation = true;
+
 		private static LinkExpressSettings settings;
 
 		public LinkExpressSettingsEntry[] Entries => entries;
+		public bool AllowMovement => allowMovement;
+		public bool AllowColorVariation => allowColorVariation;
 
 		internal static LinkExpressSettings GetOrCreateSettings()
 		{

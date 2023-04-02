@@ -28,8 +28,11 @@ namespace LinkExpress
 
 					SerializedProperty entries = settings.FindProperty("entries");
 					EditorGUILayout.PropertyField(entries, true);
-					settings.ApplyModifiedProperties();
 
+					EditorGUILayout.PropertyField(settings.FindProperty("allowMovement"));
+					EditorGUILayout.PropertyField(settings.FindProperty("allowColorVariation"));
+
+					settings.ApplyModifiedProperties();
 					EditorGUI.EndDisabledGroup();
 				},
 

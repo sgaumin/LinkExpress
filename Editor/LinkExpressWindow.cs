@@ -66,19 +66,29 @@ namespace LinkExpress
 		private void OnGUI()
 		{
 			LinkExpressSettings settings = LinkExpressSettings.GetOrCreateSettings();
+			if (settings == null || settings.Entries == null || settings.Entries.Length == 0) return;
+
 			int i = 0;
 			foreach (LinkExpressSettingsEntry entry in settings.Entries)
 			{
 				if (!string.IsNullOrEmpty(entry.Link))
 				{
-					float colorOffset = (15f * colorAnimator.value) / 255f;
-					Color color = entry.BackgroundColor;
-					GUI.backgroundColor = new Color(color.r + colorOffset, color.g + colorOffset, color.b + colorOffset);
-					GUI.contentColor = entry.TextColor;
+					// Color Animation
+					if (Application.isPlaying)
+					{
+						float colorOffset = (15f * colorAnimator.value) / 255f;
+						Color color = entry.BackgroundColor;
+						GUI.backgroundColor = new Color(color.r + colorOffset, color.g + colorOffset, color.b + colorOffset);
+					}
+					else
+					{
+						GUI.backgroundColor = entry.BackgroundColor;
+						GUI.contentColor = entry.TextColor;
+					}
 
 					GUILayout.BeginHorizontal();
 
-					// Animation
+					// Movement Animation
 					if (currentHorizontalOffsets != null && currentHorizontalOffsets.Count > 0)
 						GUILayout.Space(10f * currentHorizontalOffsets[i++].value);
 
@@ -94,7 +104,9 @@ namespace LinkExpress
 
 		private void Setup()
 		{
+			// TODO: Improve caching here.
 			LinkExpressSettings settings = LinkExpressSettings.GetOrCreateSettings();
+
 			startHorizontalOffsets = new List<AnimFloat>();
 			currentHorizontalOffsets = new List<AnimFloat>();
 			colorAnimator = new AnimFloat(0f);
@@ -112,14 +124,23 @@ namespace LinkExpress
 
 		private void UpdateAnimationParameters()
 		{
-			for (int i = 0; i < currentHorizontalOffsets.Count; i++)
+			// TODO: Improve caching here.
+			LinkExpressSettings settings = LinkExpressSettings.GetOrCreateSettings();
+
+			if (settings.AllowMovement)
 			{
-				AnimFloat startOffset = startHorizontalOffsets[i];
-				AnimFloat currentOffset = currentHorizontalOffsets[i];
-				currentOffset.value = (Mathf.Sin((Time.unscaledTime + startOffset.value) * 8) + 1) / 2;
+				for (int i = 0; i < currentHorizontalOffsets.Count; i++)
+				{
+					AnimFloat startOffset = startHorizontalOffsets[i];
+					AnimFloat currentOffset = currentHorizontalOffsets[i];
+					currentOffset.value = (Mathf.Sin((Time.unscaledTime + startOffset.value) * 8) + 1) / 2;
+				}
 			}
 
-			colorAnimator.value = Mathf.Sin(Time.unscaledTime * 8f);
+			if (settings.AllowColorVariation)
+			{
+				colorAnimator.value = Mathf.Sin(Time.unscaledTime * 8f);
+			}
 		}
 
 		private void Clear()
