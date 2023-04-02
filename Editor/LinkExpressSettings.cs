@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,7 +20,7 @@ namespace LinkExpress
 				string[] guids = AssetDatabase.FindAssets("t: LinkExpressSettings");
 				if (guids.Length > 0)
 				{
-					// We are assuming that there is one settings file in the project, so we are taking the first index.
+					// We are assuming that there is only one settings file in the project, so we are taking the first index.
 					settings = AssetDatabase.LoadAssetAtPath<LinkExpressSettings>(AssetDatabase.GUIDToAssetPath(guids[0]));
 				}
 
