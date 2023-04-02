@@ -3,6 +3,7 @@
 # Link-Express
 [![Unity 2020.3](https://img.shields.io/badge/unity-2020.3%2B-blue.svg)](https://unity3d.com/get-unity/download)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/sgaumin/AnimExpress/blob/main/LICENSE.md)
+[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/Seb_gamedev.svg?style=social&label=Follow%20%40Seb_gamedev)](https://twitter.com/Seb_gamedev)
 
 **Lightweight Unity Utility to quickly access useful external links from Unity**
 
