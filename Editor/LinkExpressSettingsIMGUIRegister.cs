@@ -37,7 +37,8 @@ namespace LinkExpress
 				},
 
 				// Populate the search keywords to enable smart search filtering and label highlighting:
-				keywords = new HashSet<string>(new[] { "Number", "Some String" })
+				// TODO: Try to make this list dynamically populated.
+				keywords = new HashSet<string>(new[] { "Github", "Itch", "GameJam", "Trello", "Google_Drive", "Twitter", "Other" })
 			};
 
 			return provider;
