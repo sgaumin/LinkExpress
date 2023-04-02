@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -14,11 +15,17 @@ namespace LinkExpress
 
 		internal static LinkExpressSettings GetOrCreateSettings()
 		{
-			LinkExpressSettings settings = AssetDatabase.LoadAssetAtPath<LinkExpressSettings>(k_LinkExpressSettingsPath);
+			LinkExpressSettings settings = null;
+			string[] guids = AssetDatabase.FindAssets("t: LinkExpressSettings");
+			if (guids.Length > 0)
+			{
+				// We are assuming that there is one settings file in the project, so we are taking the first index.
+				settings = AssetDatabase.LoadAssetAtPath<LinkExpressSettings>(AssetDatabase.GUIDToAssetPath(guids[0]));
+			}
+
 			if (settings == null)
 			{
-				// TODO: Look in project before to create another instance
-				settings = ScriptableObject.CreateInstance<LinkExpressSettings>();
+				settings = CreateInstance<LinkExpressSettings>();
 				AssetDatabase.CreateAsset(settings, k_LinkExpressSettingsPath);
 				AssetDatabase.SaveAssets();
 			}
