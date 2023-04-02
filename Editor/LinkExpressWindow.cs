@@ -10,8 +10,9 @@ namespace LinkExpress
 	/// </summary>
 	public class LinkExpressWindow : EditorWindow
 	{
-		List<AnimFloat> startHorizontalOffsets;
-		List<AnimFloat> currentHorizontalOffsets;
+		private List<AnimFloat> startHorizontalOffsets;
+		private List<AnimFloat> currentHorizontalOffsets;
+		private AnimFloat colorAnimator;
 
 		[MenuItem("Tools/Link Express")]
 		private static void Init()
@@ -58,7 +59,7 @@ namespace LinkExpress
 		{
 			if (Application.isPlaying)
 			{
-				UpdateOffsets();
+				UpdateAnimationParameters();
 			}
 		}
 
@@ -70,7 +71,9 @@ namespace LinkExpress
 			{
 				if (!string.IsNullOrEmpty(entry.Link))
 				{
-					GUI.backgroundColor = entry.BackgroundColor;
+					float colorOffset = (15f * colorAnimator.value) / 255f;
+					Color color = entry.BackgroundColor;
+					GUI.backgroundColor = new Color(color.r + colorOffset, color.g + colorOffset, color.b + colorOffset);
 					GUI.contentColor = entry.TextColor;
 
 					GUILayout.BeginHorizontal();
@@ -94,6 +97,7 @@ namespace LinkExpress
 			LinkExpressSettings settings = LinkExpressSettings.GetOrCreateSettings();
 			startHorizontalOffsets = new List<AnimFloat>();
 			currentHorizontalOffsets = new List<AnimFloat>();
+			colorAnimator = new AnimFloat(0f);
 
 			for (int i = 0; i < settings.Entries.Length; i++)
 			{
@@ -106,7 +110,7 @@ namespace LinkExpress
 			}
 		}
 
-		private void UpdateOffsets()
+		private void UpdateAnimationParameters()
 		{
 			for (int i = 0; i < currentHorizontalOffsets.Count; i++)
 			{
@@ -114,12 +118,15 @@ namespace LinkExpress
 				AnimFloat currentOffset = currentHorizontalOffsets[i];
 				currentOffset.value = (Mathf.Sin((Time.unscaledTime + startOffset.value) * 8) + 1) / 2;
 			}
+
+			colorAnimator.value = Mathf.Sin(Time.unscaledTime * 8f);
 		}
 
 		private void Clear()
 		{
 			startHorizontalOffsets.Clear();
 			currentHorizontalOffsets.Clear();
+			colorAnimator.value = 0f;
 
 			Repaint();
 		}
