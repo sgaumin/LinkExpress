@@ -11,23 +11,27 @@ namespace LinkExpress
 
 		[SerializeField] private LinkExpressSettingsEntry[] entries;
 
+		private static LinkExpressSettings settings;
+
 		public LinkExpressSettingsEntry[] Entries => entries;
 
 		internal static LinkExpressSettings GetOrCreateSettings()
 		{
-			LinkExpressSettings settings = null;
-			string[] guids = AssetDatabase.FindAssets("t: LinkExpressSettings");
-			if (guids.Length > 0)
-			{
-				// We are assuming that there is one settings file in the project, so we are taking the first index.
-				settings = AssetDatabase.LoadAssetAtPath<LinkExpressSettings>(AssetDatabase.GUIDToAssetPath(guids[0]));
-			}
-
 			if (settings == null)
 			{
-				settings = CreateInstance<LinkExpressSettings>();
-				AssetDatabase.CreateAsset(settings, k_LinkExpressSettingsPath);
-				AssetDatabase.SaveAssets();
+				string[] guids = AssetDatabase.FindAssets("t: LinkExpressSettings");
+				if (guids.Length > 0)
+				{
+					// We are assuming that there is one settings file in the project, so we are taking the first index.
+					settings = AssetDatabase.LoadAssetAtPath<LinkExpressSettings>(AssetDatabase.GUIDToAssetPath(guids[0]));
+				}
+
+				if (settings == null)
+				{
+					settings = CreateInstance<LinkExpressSettings>();
+					AssetDatabase.CreateAsset(settings, k_LinkExpressSettingsPath);
+					AssetDatabase.SaveAssets();
+				}
 			}
 			return settings;
 		}

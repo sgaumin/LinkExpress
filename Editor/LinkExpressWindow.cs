@@ -14,7 +14,16 @@ namespace LinkExpress
 		{
 			// Get existing open window or if none, make a new one:
 			LinkExpressWindow window = (LinkExpressWindow)EditorWindow.GetWindow(typeof(LinkExpressWindow));
-			window.titleContent = new GUIContent("Link Express");
+
+			Texture texture = null;
+			string[] guids = AssetDatabase.FindAssets("LinkExpressIcon");
+			if (guids.Length > 0)
+			{
+				// We are assuming that there is one file using this name, so we are taking the first index.
+				texture = AssetDatabase.LoadAssetAtPath<Texture>(AssetDatabase.GUIDToAssetPath(guids[0]));
+			}
+
+			window.titleContent = new GUIContent("Link Express", texture);
 			window.Show();
 		}
 
